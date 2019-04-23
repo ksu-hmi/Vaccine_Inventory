@@ -110,7 +110,7 @@ if (conn) :
                                         avt text
                                     ); """
             # create projects table
-            create_table(conn, sql_create_vaccines_table)
+        create_table(conn, sql_create_vaccines_table)
     else:
         print("Error! cannot create the database connection.")
 
