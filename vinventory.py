@@ -2,16 +2,17 @@ import sqlite3
 import sys
 import datetime
 
-def CreateTable():
+def create_table(conn,create_table_sql):
+    """ create a table from the create_table_sql statement
+    :param conn: Connection object
+    :param create_table_sql: a CREATE TABLE statement
+    :return:
+    """
     try:
-        conn.execute('''CREAT TABLE IF NOT EXSIST VINVENTORY (
-            ProductName TEXT NOT NULL,FROM_ TEXT NOT NULL, ArrivalDate TEXT NOT NULL,
-            ArrivalTime TEXT NOT NULL, LocationInInventory TEXT NOT NULL);''')
-        print("Table Created Sucessfully")
-
+        c = conn.cursor()
+        c.execute(create_table_sql)
     except Error as e:
-        print (e)
-        pass
+        print(e)
 
 def InsertData():
     name = input("Enter the name of the item:")
@@ -97,6 +98,22 @@ now = datetime.datetime.now()
 
 if (conn) :
     print ("Connected to database.",conn)
+    
+    if conn is not None:
+        sql_create_vaccines_table = """ CREATE TABLE IF NOT EXISTS vaccines (
+                                        id integer PRIMARY KEY,
+                                        name text NOT NULL,
+                                        exp_date text,
+                                        ndc text,
+                                        location text,
+                                        avd text,
+                                        avt text
+                                    ); """
+            # create projects table
+            create_table(conn, sql_create_vaccines_table)
+    else:
+        print("Error! cannot create the database connection.")
+
 else:
     print("Error connecting database or connecting to it")
 
