@@ -21,7 +21,7 @@ def InsertData():
     avt = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     try:
         conn.execute("INSERT INTO VINVENTORY (ProductName,From_,ArrivalDate,ArrivalTime,LocationInInventory)\
-            values("+"'"+ str (name) +"'" + ",'"+ str(from_) +"','"+ str (adv)+"','"+str(avt)+"','"+str(loc)+"')");
+            values("+"'"+ str (name) +"'" + ",'"+ str(from_) +"','"+ str (avd)+"','"+str(avt)+"','"+str(loc)+"')");
         conn.commit()
         print("**Data inserted successfully**")
         print("")
