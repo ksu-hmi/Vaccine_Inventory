@@ -92,7 +92,7 @@ def deleteData():
         print (e)
         pass
 
-conn = sqlite3.connect("~\myinventory.db")
+conn = sqlite3.connect("myinventory.db")
 now = datetime.datetime.now()
 
 if (conn) :
