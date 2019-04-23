@@ -21,7 +21,7 @@ def InsertData():
     avd = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     avt = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     try:
-        conn.execute("INSERT INTO VINVENTORY (ProductName,From_,ArrivalDate,ArrivalTime,LocationInInventory)\
+        conn.execute("INSERT INTO vaccines (name,ndc,avd,avt,location)\
             values("+"'"+ str (name) +"'" + ",'"+ str(from_) +"','"+ str (avd)+"','"+str(avt)+"','"+str(loc)+"')");
         conn.commit()
         print("**Data inserted successfully**")
