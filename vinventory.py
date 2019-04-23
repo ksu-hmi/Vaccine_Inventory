@@ -107,7 +107,7 @@ while True:
     print("press 3 to update the data in dataset")
     print("press 4 to Delete the data in dataset")
     print("press X to exit the system")
-    name = input ("Choose an operation to perform")
+    name = input ("Choose an operation to perform: ")
     if (name =="1"):
         InsertData()
     elif(name == "2"):
