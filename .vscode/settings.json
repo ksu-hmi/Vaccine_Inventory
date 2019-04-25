@@ -1,0 +1,9 @@
+{
+    "sqltools.connections": [
+        {
+            "database": "/Users/dthom310/Documents/Code/GitHub/Vaccine_Inventory/myinventory.db",
+            "dialect": "SQLite",
+            "name": "V Inventory"
+        }
+    ]
+}

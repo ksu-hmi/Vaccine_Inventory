@@ -18,12 +18,12 @@ def InsertData():
     name = input("Enter the name of the item:")
     ndc = input("Enter the national drug code of the items:")
     loc = input ("Enter the item inventory location:")
-    aval = imput("Enter number of doses left:")
+    aval = input("Enter number of doses left:")
     avd = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     avt = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     try:
         conn.execute("INSERT INTO vaccines (vname,ndc,avd,avt,location,aval)\
-            values("+"'"+ str (name) +"'" + ",'"+ str(ndc) +"', '"+ str(aval) +"','"+ str (avd)+"','"+str(avt)+"','"+str(loc)+"')");
+            values("+"'"+ str(name) +"'" + ",'"+ str(ndc) +"', '"+ str(aval) +"','"+ str (avd)+"','"+str(avt)+"','"+str(loc)+"')");
         conn.commit()
         print("**Data inserted successfully**")
         print("")
