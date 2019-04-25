@@ -19,9 +19,7 @@ Coming Soon
 Requirements:
 Python 3.9
 Associated libraries
-sqlite3
-sys
-datetime
+sqlite3, sys, datetime
 
 About Us
 Bushra Siddiqi and Sadia Ghani are students at Kennesaw State University studying Health Informatics with a focus on Python software. They are interning at HIP Nation Inc.  and trying to provide efficient software applications to help manage and keep track of vaccines and injections for the company. 
