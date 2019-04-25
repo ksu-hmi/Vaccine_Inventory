@@ -2,6 +2,7 @@ import sqlite3
 from sqlite3 import Error
 import sys
 import datetime
+# a comment
 
 def create_table(conn,create_table_sql):
     """ create a table from the create_table_sql statement
