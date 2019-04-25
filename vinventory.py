@@ -16,13 +16,14 @@ def create_table(conn,create_table_sql):
 
 def InsertData():
     name = input("Enter the name of the item:")
-    from_ = input("Enter the from location of the items:")
+    ndc = input("Enter the national drug code of the items:")
     loc = input ("Enter the item inventory location:")
+    aval = imput("Enter number of doses left:")
     avd = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     avt = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     try:
-        conn.execute("INSERT INTO vaccines (name,ndc,avd,avt,location)\
-            values("+"'"+ str (name) +"'" + ",'"+ str(from_) +"','"+ str (avd)+"','"+str(avt)+"','"+str(loc)+"')");
+        conn.execute("INSERT INTO vaccines (vname,ndc,avd,avt,location,aval)\
+            values("+"'"+ str (name) +"'" + ",'"+ str(ndc) +"', '"+ str(aval) +"','"+ str (avd)+"','"+str(avt)+"','"+str(loc)+"')");
         conn.commit()
         print("**Data inserted successfully**")
         print("")
@@ -32,17 +33,18 @@ def InsertData():
         pass
 def selectData():
     try:
-        cursor = conn.execute ("SELECT oid,ProductName, From_,ArrivalDate, ArrivalTime, LocationInInventory FROM VINVENTORY" )
+        cursor = conn.execute ("SELECT id,name, ndc,ArrivalDate, ArrivalTime, Availability,LocationInInventory FROM VINVENTORY" )
         print("")
         print("")
         print('*********')
         for row in cursor:
             print("ID =", row[0])
-            print("ProductName =", row[1])
-            print("From_ =", row[2])
+            print("VName =", row[1])
+            print("ndc =", row[2])
             print("ArrivalDate =", row[3])
             print("ArrivalTime=", row[4])
             print("LocationInInventory =", row[5])
+            print("Availability=", row[6])
         print("")
         print("")
         print("****Operation Done successfully****")
@@ -57,21 +59,23 @@ def updateData():
     dte = input("Enter the ID of the column you want to edit")
     print("")
     print("")
-    print("Press 1 if you want to edit ProductName")
-    print("Press 2 if youwant to edit from_ ")
+    print("Press 1 if you want to edit VName")
+    print("Press 2 if youwant to edit ndc")
     print('Press 3 if you want to edit location')
+    print('Press 4 if you want to edit Aval ')
 
     inp + input("Enter which feature of the data do you want to edit:")
     print("")
     upv = input ("Enter the new value:")
 
     if(inp == "1"):
-        sql = "UPDATE VINVENTORY set ProductName = ? where oid =  ?"
+        sql = "UPDATE VINVENTORY set ProductName = ? where id =  ?"
     elif (inp == "2"):
-       sql = "UPDATE VINVENTORY set From_ = ? where oid =  ?" 
+       sql = "UPDATE VINVENTORY set ndc = ? where id =  ?" 
     elif (inp == "3"):
-       sql = "UPDATE VINVENTORY set LocationInInventory  = ? where oid =  ?"
-    
+       sql = "UPDATE VINVENTORY set LocationInInventory  = ? where id =  ?"
+    elif (inp == "4"):
+       sql = "UPDATE VINVENTORY set aval  = ? where id =  ?"
     try:
         conn.execute(sql, (str(uvp), str(dte)))
         conn.connect()
@@ -85,7 +89,7 @@ def deleteData():
     selectData()
     id_   =  input("Above is your data choice choose the Id you want to delete:")
     try:
-        sql = "DELETE FROM VINVENTORY WHERE oid = ?"
+        sql = "DELETE FROM VINVENTORY WHERE id = ?"
         conn.execute(sql,(str(id_)))
         conn.commit()
         print("sucessfully deleted")
@@ -107,6 +111,7 @@ if (conn) :
                                         ndc text,
                                         location text,
                                         avd text,
+                                        aval text,
                                         avt text
                                     ); """
             # create projects table
