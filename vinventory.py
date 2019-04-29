@@ -44,7 +44,7 @@ def selectData():
             print("Name =", row[1])
             print("ndc =", row[2])
             print("LocationInInventory =", row[3])
-            print("AvailabilityArrivalTime=", row[4])
+            print("Availability=", row[4])
             print("ArrivalDate =", row[5])
             print("ArrivalTime=", row[6])
         print("")
@@ -61,23 +61,29 @@ def updateData():
     dte = input("Enter the ID of the column you want to edit")
     print("")
     print("")
-    print("Press 1 if you want to edit VName")
+    print("Press 1 if you want to edit Name")
     print("Press 2 if youwant to edit ndc")
     print('Press 3 if you want to edit location')
-    print('Press 4 if you want to edit Aval ')
+    print('Press 4 if you want to edit Avalability')
+    print('Press 3 if you want to edit ArrivalDate')
+    print('Press 3 if you want to edit ArrivalTime')
 
     inp + input("Enter which feature of the data do you want to edit:")
     print("")
     upv = input ("Enter the new value:")
 
     if(inp == "1"):
-        sql = "UPDATE VINVENTORY set ProductName = ? where id =  ?"
+        sql = "UPDATE vaccines set Name = ? where id =  ?"
     elif (inp == "2"):
-       sql = "UPDATE VINVENTORY set ndc = ? where id =  ?" 
+       sql = "UPDATE vaccines set ndc = ? where id =  ?" 
     elif (inp == "3"):
-       sql = "UPDATE VINVENTORY set LocationInInventory  = ? where id =  ?"
+       sql = "UPDATE vaccines set LocationInInventory  = ? where id =  ?"
     elif (inp == "4"):
-       sql = "UPDATE VINVENTORY set aval  = ? where id =  ?"
+       sql = "UPDATE vaccines set avalability  = ? where id =  ?"
+    elif (inp == "5"):
+       sql = "UPDATE vaccines set ArrivalDate  = ? where id =  ?"
+    elif (inp == "6"):
+       sql = "UPDATE vaccines set ArrivalTime = ? where id =  ?"  
     try:
         conn.execute(sql, (str(uvp), str(dte)))
         conn.connect()
@@ -91,7 +97,7 @@ def deleteData():
     selectData()
     id_   =  input("Above is your data choice choose the Id you want to delete:")
     try:
-        sql = "DELETE FROM VINVENTORY WHERE id = ?"
+        sql = "DELETE FROM vaccines WHERE id = ?"
         conn.execute(sql,(str(id_)))
         conn.commit()
         print("sucessfully deleted")
