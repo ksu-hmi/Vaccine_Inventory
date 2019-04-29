@@ -24,8 +24,8 @@ def InsertData():
     avd = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     avt = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     try:
-        conn.execute("INSERT INTO vaccines (name,ndc,avd,avt,location,aval)\
-            values("+"'"+ str(name) +"'" + ",'"+ str(ndc) +"', '"+ str(aval) +"','"+ str (avd)+"','"+str(avt)+"','"+str(loc)+"')");
+        conn.execute("INSERT INTO vaccines (name,ndc,loc,aval,avd,avt)\
+            values("+"'"+ str(name) +"'" + ",'"+ str(ndc) +"', '"+ str(loc) +"','"+ str (aval)+"','"+str(avd)+"','"+str(avt)+"')");
         conn.commit()
         print("**Data inserted successfully**")
         print("")
@@ -35,18 +35,18 @@ def InsertData():
         pass
 def selectData():
     try:
-        cursor = conn.execute ("SELECT id,name, ndc,ArrivalDate, ArrivalTime, Availability,LocationInInventory FROM VINVENTORY" )
+        cursor = conn.execute ("SELECT id,name, ndc,LocationInInventory,Availability,ArrivalDate, ArrivalTime, FROM vaccines" )
         print("")
         print("")
         print('*********')
         for row in cursor:
             print("ID =", row[0])
-            print("VName =", row[1])
+            print("Name =", row[1])
             print("ndc =", row[2])
-            print("ArrivalDate =", row[3])
-            print("ArrivalTime=", row[4])
-            print("LocationInInventory =", row[5])
-            print("Availability=", row[6])
+            print("LocationInInventory =", row[3])
+            print("AvailabilityArrivalTime=", row[4])
+            print("ArrivalDate =", row[5])
+            print("ArrivalTime=", row[6])
         print("")
         print("")
         print("****Operation Done successfully****")
