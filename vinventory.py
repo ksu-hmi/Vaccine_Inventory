@@ -24,7 +24,7 @@ def InsertData():
     avd = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     avt = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     try:
-        conn.execute("INSERT INTO vaccines (name,ndc,loc,aval,avd,avt)\
+        conn.execute("INSERT INTO vaccines (name,ndc,location,aval,avd,avt)\
             values("+"'"+ str(name) +"'" + ",'"+ str(ndc) +"', '"+ str(loc) +"','"+ str (aval)+"','"+str(avd)+"','"+str(avt)+"')");
         conn.commit()
         print("**Data inserted successfully**")
