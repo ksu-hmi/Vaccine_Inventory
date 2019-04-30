@@ -2,13 +2,12 @@ import sqlite3
 from sqlite3 import Error
 import sys
 import datetime
-# a comment
 
 def create_table(conn,create_table_sql):
     """ create a table from the create_table_sql statement
     :param conn: Connection object
     :param create_table_sql: a CREATE TABLE statement
-    :return:
+    :return:1
     """
     try:
         c = conn.cursor()
@@ -16,16 +15,16 @@ def create_table(conn,create_table_sql):
     except Error as e:
         print(e)
 
-def InsertData():
+def insertdata():
     name = input("Enter the name of the item: ")
     ndc = input("Enter the national drug code of the items: ")
-    loc = input ("Enter the item inventory location: ")
-    aval = input("Enter number of doses left: ")
-    avd = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
-    avt = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
+    location = input ("Enter the item inventory location: ")
+    availability = input("Enter number of doses left: ")
+    arrivaldate = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
+    expirationdate = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     try:
-        conn.execute("INSERT INTO vaccines (name,ndc,location,aval,avd,avt)\
-            values("+"'"+ str(name) +"'" + ",'"+ str(ndc) +"', '"+ str(loc) +"','"+ str (aval)+"','"+str(avd)+"','"+str(avt)+"')");
+        conn.execute("INSERT INTO vaccines (name,ndc,location,availability,arrivaldate,expirationdate)\
+            values("+"'"+ str(name) +"'" + ",'"+ str(ndc) +"', '"+ str(location) +"','"+ str (availability)+"','"+str(arrivaldate)+"','"+str(expirationdate)+"','")
         conn.commit()
         print("**Data inserted successfully**")
         print("")
@@ -33,20 +32,20 @@ def InsertData():
     except Error as e:
         print (e)
         pass
-def selectData():
+def selectdata():
     try:
-        cursor = conn.execute ("SELECT id,name, ndc,LocationInInventory,Availability,ArrivalDate, ArrivalTime, FROM vaccines" )
+        cursor = conn.execute ("SELECT id,name, ndc,Location,availability,arrivaldate, expirationdate FROM vaccines" )
         print("")
         print("")
         print('*********')
         for row in cursor:
             print("ID =", row[0])
-            print("Name =", row[1])
+            print("name =", row[1])
             print("ndc =", row[2])
-            print("LocationInInventory =", row[3])
-            print("Availability=", row[4])
-            print("ArrivalDate =", row[5])
-            print("ArrivalTime=", row[6])
+            print("Location =", row[3])
+            print("availability=", row[4])
+            print("arrivaldate =", row[5])
+            print("expirationdate=", row[6])
         print("")
         print("")
         print("****Operation Done successfully****")
@@ -56,17 +55,17 @@ def selectData():
     print("Here is your data")
     print("")
     print("")
-def updateData():
-    selectData()
+def updatedata():
+    selectdata()
     dte = input("Enter the ID of the column you want to edit")
     print("")
     print("")
-    print("Press 1 if you want to edit Name")
+    print("Press 1 if you want to edit name")
     print("Press 2 if youwant to edit ndc")
     print('Press 3 if you want to edit location')
-    print('Press 4 if you want to edit Avalability')
-    print('Press 3 if you want to edit ArrivalDate')
-    print('Press 3 if you want to edit ArrivalTime')
+    print('Press 4 if you want to edit availability')
+    print('Press 5 if you want to edit arrivaldate')
+    print('Press 6 if you want to edit expirationdate')
 
     inp + input("Enter which feature of the data do you want to edit:")
     print("")
@@ -77,13 +76,13 @@ def updateData():
     elif (inp == "2"):
        sql = "UPDATE vaccines set ndc = ? where id =  ?" 
     elif (inp == "3"):
-       sql = "UPDATE vaccines set LocationInInventory  = ? where id =  ?"
+       sql = "UPDATE vaccines set location  = ? where id =  ?"
     elif (inp == "4"):
-       sql = "UPDATE vaccines set avalability  = ? where id =  ?"
+       sql = "UPDATE vaccines set availability  = ? where id =  ?"
     elif (inp == "5"):
-       sql = "UPDATE vaccines set ArrivalDate  = ? where id =  ?"
+       sql = "UPDATE vaccines set arrivaldate  = ? where id =  ?"
     elif (inp == "6"):
-       sql = "UPDATE vaccines set ArrivalTime = ? where id =  ?"  
+       sql = "UPDATE vaccines set expirationdate = ? where id =  ?"  
     try:
         conn.execute(sql, (str(uvp), str(dte)))
         conn.connect()
@@ -93,8 +92,8 @@ def updateData():
         print(e)
         pass
 
-def deleteData():
-    selectData()
+def deletedata():
+    selectdata()
     id_   =  input("Above is your data choice choose the Id you want to delete:")
     try:
         sql = "DELETE FROM vaccines WHERE id = ?"
@@ -115,12 +114,11 @@ if (conn) :
         sql_create_vaccines_table = """ CREATE TABLE IF NOT EXISTS vaccines (
                                         id integer PRIMARY KEY,
                                         name text NOT NULL,
-                                        exp_date text,
                                         ndc text,
                                         location text,
-                                        avd text,
-                                        aval text,
-                                        avt text
+                                        availability text,
+                                        arrivaldate text,
+                                        expirationdate text
                                     ); """
             # create projects table
         create_table(conn, sql_create_vaccines_table)
@@ -139,13 +137,13 @@ while True:
     print("press X to exit the system")
     name = input ("Choose an operation to perform: ")
     if (name =="1"):
-        InsertData()
+        insertdata()
     elif(name == "2"):
-        SelectData()
+        selectdata()
     elif(name == "3"):
-        updateData()
+        updatedata()
     elif(name == "4"):
-        deleteData()
+        deletedata()
     elif(name=="X"):
         conn.close()
         break
