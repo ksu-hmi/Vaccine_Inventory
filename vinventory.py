@@ -37,11 +37,12 @@ def insertdata():
     arrivaldate = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     expirationdate = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     try:
-        conn.execute("INSERT INTO vaccines (name,ndc,location,availability,arrivaldate,expirationdate)\
+        
+        sqlresult = conn.execute("INSERT INTO vaccines (name,ndc,location,availability,arrivaldate,expirationdate)\
             values("+"'"+ str(name) +"'" + ",'"+ str(ndc) +"', '"+ str(location) +"','"+ str (availability)+"','"+str(arrivaldate)+"','"+str(expirationdate)+"')")
         conn.commit()
         print("***Data inserted successfully**")
-        print("")
+        print("SQL result is: ",sqlresult)
         print("")
     except Error as e:
         print ("***Insert error: ",e)
@@ -149,7 +150,11 @@ while True:
     if (name =="1"):
         insertdata()
     elif(name == "2"):
-        print(selectdata())
+        for row in selectdata():
+            thisrow = "  --> "
+            for item in row:
+                 thisrow += str(item) + "  "
+            print (thisrow)
     elif(name == "3"):
         updatedata()
     elif(name == "4"):
