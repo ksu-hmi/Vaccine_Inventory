@@ -50,8 +50,8 @@ def selectdata():
     try:
         cursor = conn.execute ("SELECT id,name, ndc,location,availability,arrivaldate, expirationdate FROM vaccines" )
         alldata = []
-        alldata.append=(["ID","name","ndc","location","availability","arrivaldate","expirationdate"])
-        for rows in cursor:
+        alldata.append(["ID","name","ndc","location","availability","arrivaldate","expirationdate"])
+        for row in cursor:
             thisrow=[]
             thisrow.append(row[0])
             thisrow.append(row[1])
