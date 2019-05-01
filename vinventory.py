@@ -50,16 +50,17 @@ def selectdata():
     try:
         cursor = conn.execute ("SELECT id,name, ndc,Location,availability,arrivaldate, expirationdate FROM vaccines" )
         alldata = []
-        alldata[0]=["ID","name","ndc","location","availability","arrivaldate","expirationdate"]
-        counter = 1
+        alldata.append(["ID","name","ndc","location","availability","arrivaldate","expirationdate"])
         for row in cursor:
-            alldata[counter]= row[0]
-            alldata[counter]=  row[1]
-            alldata[counter]= row[2]
-            alldata[counter]= row[3]
-            alldata[counter]= row[4]
-            alldata[counter]= row[5]
-            alldata[counter]=  row[6]
+            thisrow = []
+            thisrow.append(row[0])
+            thisrow.append(row[1])
+            thisrow.append(row[2])
+            thisrow.append(row[3])
+            thisrow.append(row[4])
+            thisrow.append(row[5])
+            thisrow.append(row[6])
+            alldata.append(thisrow)
         return alldata
     except Error as e:
         print (e)
