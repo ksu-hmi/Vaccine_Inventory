@@ -38,39 +38,34 @@ def insertdata():
     expirationdate = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     try:
         conn.execute("INSERT INTO vaccines (name,ndc,location,availability,arrivaldate,expirationdate)\
-            values("+"'"+ str(name) +"'" + ",'"+ str(ndc) +"', '"+ str(location) +"','"+ str (availability)+"','"+str(arrivaldate)+"','"+str(expirationdate)+"','")
+            values("+"'"+ str(name) +"'" + ",'"+ str(ndc) +"', '"+ str(location) +"','"+ str (availability)+"','"+str(arrivaldate)+"','"+str(expirationdate)+"')")
         conn.commit()
-        print("**Data inserted successfully**")
+        print("***Data inserted successfully**")
         print("")
         print("")
     except Error as e:
-        print (e)
+        print ("***Insert error: ",e)
         pass
 def selectdata():
     try:
         cursor = conn.execute ("SELECT id,name, ndc,Location,availability,arrivaldate, expirationdate FROM vaccines" )
-        print("")
-        print("")
-        print('*********')
+        alldata = []
+        alldata[0]=["ID","name","ndc","location","availability","arrivaldate","expirationdate"]
+        counter = 1
         for row in cursor:
-            print("ID =", row[0])
-            print("name =", row[1])
-            print("ndc =", row[2])
-            print("Location =", row[3])
-            print("availability=", row[4])
-            print("arrivaldate =", row[5])
-            print("expirationdate=", row[6])
-        print("")
-        print("")
-        print("****Operation Done successfully****")
+            alldata[counter]= row[0]
+            alldata[counter]=  row[1]
+            alldata[counter]= row[2]
+            alldata[counter]= row[3]
+            alldata[counter]= row[4]
+            alldata[counter]= row[5]
+            alldata[counter]=  row[6]
+        return alldata
     except Error as e:
         print (e)
         pass
-    print("Here is your data")
-    print("")
-    print("")
 def updatedata():
-    selectdata()
+    print(selectdata())
     dte = input("Enter the ID of the column you want to edit")
     print("")
     print("")
@@ -110,7 +105,7 @@ def deletedata():
     selectdata()
     id_   =  input("Above is your data choice choose the Id you want to delete:")
     try:
-        sql = "DELETE FROM vaccines WHERE id = ?"
+        sql = "DELETE FROM vaccines WHERE id = "+id_
         conn.execute(sql,(str(id_)))
         conn.commit()
         print("sucessfully deleted")
@@ -121,11 +116,11 @@ def deletedata():
 conn = sqlite3.connect("myinventory.db")
 now = datetime.datetime.now()
 
-if (conn) :
+if conn:
     print ("Connected to database.",conn)
     
     if conn is not None:
-        sql_create_vaccines_table = """ CREATE TABLE IF NOT EXSISTED vaccines (
+        sql_create_vaccines_table = """ CREATE TABLE IF NOT EXISTS vaccines (
                                         id integer PRIMARY KEY,
                                         name text NOT NULL,
                                         ndc text,
@@ -153,7 +148,7 @@ while True:
     if (name =="1"):
         insertdata()
     elif(name == "2"):
-        selectdata()
+        print(selectdata())
     elif(name == "3"):
         updatedata()
     elif(name == "4"):
