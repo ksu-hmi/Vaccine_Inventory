@@ -48,19 +48,18 @@ def insertdata():
         pass
 def selectdata():
     try:
-        cursor = conn.execute ("SELECT id,name, ndc,Location,availability,arrivaldate, expirationdate FROM vaccines" )
+        cursor = conn.execute ("SELECT id,name, ndc,location,availability,arrivaldate, expirationdate FROM vaccines" )
         alldata = []
-        alldata.append(["ID","name","ndc","location","availability","arrivaldate","expirationdate"])
+        alldata[0]=["ID","name","ndc","location","availability","arrivaldate","expirationdate"]
+        counter = 1
         for row in cursor:
-            thisrow = []
-            thisrow.append(row[0])
-            thisrow.append(row[1])
-            thisrow.append(row[2])
-            thisrow.append(row[3])
-            thisrow.append(row[4])
-            thisrow.append(row[5])
-            thisrow.append(row[6])
-            alldata.append(thisrow)
+            alldata[counter][0]= row[0]
+            alldata[counter][1]=  row[1]
+            alldata[counter][2]= row[2]
+            alldata[counter][3]= row[3]
+            alldata[counter][4]= row[4]
+            alldata[counter][5]= row[5]
+            alldata[counter][6]=  row[6]
         return alldata
     except Error as e:
         print (e)
