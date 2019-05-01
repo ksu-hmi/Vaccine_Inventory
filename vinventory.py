@@ -3,6 +3,20 @@ from sqlite3 import Error
 import sys
 import datetime
 
+def create_connection(db_myinventory):
+    """ create a database connection to the SQLite database
+        specified by the db_file
+    :param db_file: database file
+    :return: Connection object or None
+    """
+    try:
+        conn = sqlite3.connect(db_myinventory)
+        return conn
+    except Error as e:
+        print(e)
+ 
+    return None
+
 def create_table(conn,create_table_sql):
     """ create a table from the create_table_sql statement
     :param conn: Connection object
@@ -111,7 +125,7 @@ if (conn) :
     print ("Connected to database.",conn)
     
     if conn is not None:
-        sql_create_vaccines_table = """ CREATE TABLE IF NOT EXISTS vaccines (
+        sql_create_vaccines_table = """ CREATE TABLE IF NOT EXSISTED vaccines (
                                         id integer PRIMARY KEY,
                                         name text NOT NULL,
                                         ndc text,
