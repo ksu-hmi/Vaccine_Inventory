@@ -135,7 +135,7 @@ if conn:
                                         availability text,
                                         arrivaldate text,
                                         expirationdate text,
-                                        changemade
+                                        changemade text
                                     ); """
             # create projects table
         create_table(conn, sql_create_vaccines_table)
@@ -158,13 +158,13 @@ while True:
     elif(name == "2"):
         for row in selectdata():
             thisrow = "  --> "
-            for item in row:
-                 thisrow += str(item) + "  "
+        for item in row:
+            thisrow += str(item) + "  "
             print (thisrow)
     elif(name == "3"):
         updatedata()
     elif(name == "4"):
         deletedata()
-    elif(name=="X"):
+    elif(name == "X"):
         conn.close()
         break
