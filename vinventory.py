@@ -34,12 +34,13 @@ def insertdata():
     ndc = input("Enter the national drug code of the items: ")
     location = input ("Enter the item inventory location: ")
     availability = input("Enter number of doses left: ")
-    arrivaldate = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
-    expirationdate = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
+    arrivaldate = input("Enter arrival date: ")
+    expirationdate = input("Enter expirationdatte: ")
+    changemade = str(now.year) +"/"+str(now.month) +"/"+str(now.day)
     try:
         
-        sqlresult = conn.execute("INSERT INTO vaccines (name,ndc,location,availability,arrivaldate,expirationdate)\
-            values("+"'"+ str(name) +"'" + ",'"+ str(ndc) +"', '"+ str(location) +"','"+ str (availability)+"','"+str(arrivaldate)+"','"+str(expirationdate)+"')")
+        sqlresult = conn.execute("INSERT INTO vaccines (name,ndc,location,availability,arrivaldate,expirationdate,changemade)\
+            values("+"'"+ str(name) +"'" + ",'"+ str(ndc) +"', '"+ str(location) +"','"+ str (availability)+"','"+str(arrivaldate)+"','"+ str (expirationdate)+"','"+str(changemade)+"')")
         conn.commit()
         print("***Data inserted successfully**")
         print("SQL result is: ",sqlresult)
@@ -49,9 +50,9 @@ def insertdata():
         pass
 def selectdata():
     try:
-        cursor = conn.execute ("SELECT id,name, ndc,location,availability,arrivaldate, expirationdate FROM vaccines" )
+        cursor = conn.execute ("SELECT id,name, ndc,location,availability,arrivaldate, expirationdate,changemade FROM vaccines" )
         alldata = []
-        alldata.append(["ID","name","ndc","location","availability","arrivaldate","expirationdate"])
+        alldata.append(["ID","name","ndc","location","availability","arrivaldate","expirationdate","changemade"])
         for row in cursor:
             thisrow=[]
             thisrow.append(row[0])
@@ -61,6 +62,7 @@ def selectdata():
             thisrow.append(row[4])
             thisrow.append(row[5])
             thisrow.append(row[6])
+            thisrow.append(row[7])
             alldata.append(thisrow)
         return alldata
     except Error as e:
@@ -77,6 +79,7 @@ def updatedata():
     print('Press 4 if you want to edit availability')
     print('Press 5 if you want to edit arrivaldate')
     print('Press 6 if you want to edit expirationdate')
+    print('Press 7 if you want to edit changemade')
 
     inp + input("Enter which feature of the data do you want to edit:")
     print("")
@@ -94,8 +97,10 @@ def updatedata():
        sql = "UPDATE vaccines set arrivaldate  = ? where id =  ?"
     elif (inp == "6"):
        sql = "UPDATE vaccines set expirationdate = ? where id =  ?"  
+    elif (inp == "7"):
+       sql = "UPDATE vaccines set changemade = ? where id =  ?" 
     try:
-        conn.execute(sql, (str(uvp), str(dte)))
+        conn.execute(sql, (str(uvp),str(dte)))
         conn.connect()
         print ("successfully updated")
 
@@ -105,7 +110,7 @@ def updatedata():
 
 def deletedata():
     selectdata()
-    id_   =  input("Above is your data choice choose the Id you want to delete:")
+    id_  =  input("Above is your data choice choose the Id you want to delete:")
     try:
         sql = "DELETE FROM vaccines WHERE id = "+id_
         conn.execute(sql,(str(id_)))
@@ -129,7 +134,8 @@ if conn:
                                         location text,
                                         availability text,
                                         arrivaldate text,
-                                        expirationdate text
+                                        expirationdate text,
+                                        changemade
                                     ); """
             # create projects table
         create_table(conn, sql_create_vaccines_table)
