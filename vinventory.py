@@ -158,8 +158,8 @@ while True:
     elif(name == "2"):
         for row in selectdata():
             thisrow = "  --> "
-        for item in row:
-            thisrow += str(item) + "  "
+            for item in row:
+                thisrow += str(item) + "  "
             print (thisrow)
     elif(name == "3"):
         updatedata()
